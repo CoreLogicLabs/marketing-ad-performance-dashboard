@@ -1,5 +1,9 @@
 # 📈 Marketing Performance Dashboard
 
+[![Live demo](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://marketing-ad-performance-dashboard-fwajz2a22fqpmk8cvnz7p4.streamlit.app/)
+
+**🔗 Live demo:** <https://marketing-ad-performance-dashboard-fwajz2a22fqpmk8cvnz7p4.streamlit.app/>
+
 An interactive, filterable **marketing / ad-performance dashboard** built with
 [Streamlit](https://streamlit.io) and [Plotly](https://plotly.com/python/).
 It turns a 6-month, multi-channel paid-media dataset into a live analytics app:
