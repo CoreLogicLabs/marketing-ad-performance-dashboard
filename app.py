@@ -69,6 +69,17 @@ def money(value: float, decimals: int = 0) -> str:
     return f"${value:,.{decimals}f}"
 
 
+def money_md(value: float, decimals: int = 0) -> str:
+    """Money formatted for **Streamlit markdown**, with the ``$`` escaped.
+
+    Streamlit treats a pair of unescaped dollar signs on one line as LaTeX math
+    and renders the text between them as an italic formula. Escaping every ``$``
+    as ``\\$`` keeps insight sentences rendering as plain text regardless of how
+    many money values they contain.
+    """
+    return f"\\${value:,.{decimals}f}"
+
+
 def pct(fraction: float, decimals: int = 2) -> str:
     return f"{fraction * 100:.{decimals}f}%"
 
@@ -367,12 +378,12 @@ def build_takeaways(df: pd.DataFrame) -> list[str]:
     worst = material.loc[material["roas"].idxmin()]
     insights.append(
         f"🏆 **{best['channel']}** is the strongest channel at **{best['roas']:.2f}x ROAS** "
-        f"(${best['revenue']:,.0f} revenue on ${best['spend']:,.0f} spend)."
+        f"({money_md(best['revenue'])} revenue on {money_md(best['spend'])} spend)."
     )
     if worst["channel"] != best["channel"]:
         insights.append(
             f"⚠️ **{worst['channel']}** lags at **{worst['roas']:.2f}x ROAS** "
-            f"and **${worst['cpa']:,.0f} CPA** — the first place to tighten "
+            f"and **{money_md(worst['cpa'])} CPA** — the first place to tighten "
             f"targeting or reallocate budget."
         )
 
@@ -382,7 +393,7 @@ def build_takeaways(df: pd.DataFrame) -> list[str]:
         top = material_camp.loc[material_camp["roas"].idxmax()]
         insights.append(
             f"💡 Most efficient campaign: **{top['campaign']} · {top['channel']}** "
-            f"at **{top['roas']:.2f}x ROAS** and **${top['cpa']:,.0f} CPA**."
+            f"at **{top['roas']:.2f}x ROAS** and **{money_md(top['cpa'])} CPA**."
         )
 
     # Budget-reallocation hint: what worst-channel spend would return at best ROAS.
@@ -390,15 +401,15 @@ def build_takeaways(df: pd.DataFrame) -> list[str]:
         uplift = worst["spend"] * (best["roas"] - worst["roas"])
         if uplift > 0:
             insights.append(
-                f"📊 Shifting **{worst['channel']}**'s ${worst['spend']:,.0f} spend toward "
+                f"📊 Shifting **{worst['channel']}**'s {money_md(worst['spend'])} spend toward "
                 f"**{best['channel']}**-level efficiency could unlock roughly "
-                f"**${uplift:,.0f}** in incremental revenue."
+                f"**{money_md(uplift)}** in incremental revenue."
             )
 
     totals = du.compute_kpis(df)
     insights.append(
         f"📈 Blended account ROAS is **{totals['roas']:.2f}x** with a **{totals['ctr'] * 100:.2f}%** "
-        f"CTR and **${totals['cpa']:,.0f}** average CPA across the selection."
+        f"CTR and **{money_md(totals['cpa'])}** average CPA across the selection."
     )
     return insights
 
