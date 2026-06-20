@@ -33,13 +33,7 @@ chart and table updates instantly.
 
 ## 🖼️ Screenshot
 
-> _Add a screenshot here once the app is running locally._
-
-```
-docs/screenshot.png
-```
-
-![Dashboard screenshot](docs/screenshot.png)
+![Marketing Performance Dashboard — KPIs, charts, campaign table and auto-generated takeaways](docs/screenshot.png)
 
 ---
 
