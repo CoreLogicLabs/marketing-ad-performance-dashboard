@@ -1,0 +1,34 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+*.egg
+
+# ---- Virtual environments ----
+.venv/
+venv/
+env/
+ENV/
+.python-version
+
+# ---- Streamlit ----
+# Never commit secrets; the public theme config (.streamlit/config.toml) is fine.
+.streamlit/secrets.toml
+
+# ---- Notebooks / caches ----
+.ipynb_checkpoints/
+.cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ---- OS / editor ----
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp

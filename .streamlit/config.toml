@@ -1,0 +1,12 @@
+# Streamlit theme — matches the dashboard's blue / green brand palette.
+# This file is safe to commit (unlike .streamlit/secrets.toml).
+
+[theme]
+primaryColor = "#2563eb"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f1f5f9"
+textColor = "#0f172a"
+font = "sans serif"
+
+[server]
+headless = true

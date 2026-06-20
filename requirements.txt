@@ -1,0 +1,9 @@
+# Interactive web app framework
+streamlit>=1.33
+
+# Core data stack
+pandas>=2.0
+numpy>=1.24
+
+# Interactive charts
+plotly>=5.18
