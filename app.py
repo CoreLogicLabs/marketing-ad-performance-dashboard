@@ -306,6 +306,22 @@ st.plotly_chart(chart_cpa_vs_roas(current), width="stretch")
 # --------------------------------------------------------------------------- #
 # Campaign performance table
 # --------------------------------------------------------------------------- #
+def green_gradient(col: pd.Series) -> list[str]:
+    """Shade a numeric column from faint to strong brand green.
+
+    A matplotlib-free replacement for ``Styler.background_gradient`` so the app
+    stays lightweight (no extra dependency just to colour one column).
+    """
+    lo, hi = col.min(), col.max()
+    span = (hi - lo) or 1.0
+    styles = []
+    for value in col:
+        t = (value - lo) / span  # normalise to 0..1
+        alpha = 0.10 + 0.55 * t  # faint -> strong green (rgb of #10b981)
+        styles.append(f"background-color: rgba(16, 185, 129, {alpha:.3f})")
+    return styles
+
+
 st.subheader("Campaign performance")
 st.caption("Click any column header to sort. Metrics are computed from summed base values.")
 
@@ -329,7 +345,7 @@ styled = table.style.format(
         "CPC": "${:,.2f}", "CPM": "${:,.2f}", "CPA": "${:,.2f}",
         "ROAS": "{:.2f}x",
     }
-).background_gradient(subset=["ROAS"], cmap="Greens")
+).apply(green_gradient, subset=["ROAS"])
 
 st.dataframe(styled, width="stretch", hide_index=True)
 
