@@ -1,5 +1,5 @@
-# Interactive web app framework
-streamlit>=1.33
+# Interactive web app framework (>=1.49 for the `width="stretch"` API)
+streamlit>=1.49
 
 # Core data stack
 pandas>=2.0

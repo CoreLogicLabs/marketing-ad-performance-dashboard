@@ -55,17 +55,22 @@ chart and table updates instantly.
 ## 📂 Project structure
 
 ```
-marketing-dashboard/
-├── generate_data.py      # Reproducible synthetic ad-campaign data generator
-├── data_utils.py         # Loading, filtering & metric calculation (single source of truth)
+marketing-ad-performance-dashboard/
 ├── app.py                # Streamlit dashboard (UI + charts)
+├── data_utils.py         # Loading, filtering & metric calculation (single source of truth)
+├── generate_data.py      # Reproducible synthetic ad-campaign data generator
 ├── requirements.txt      # Python dependencies
 ├── README.md
+├── LICENSE               # MIT
 ├── .gitignore
 ├── .streamlit/
 │   └── config.toml       # Brand theme (committed; secrets.toml is git-ignored)
-└── data/                 # Generated CSV lives here (created on first run)
-    └── ad_campaigns.csv
+├── .devcontainer/
+│   └── devcontainer.json # GitHub Codespaces config
+├── docs/
+│   └── screenshot.png    # README screenshot
+└── data/
+    └── ad_campaigns.csv  # Dataset (committed; auto-regenerated if missing)
 ```
 
 ### How the data model stays consistent
@@ -93,8 +98,9 @@ ratios, no inconsistent totals.
 You'll need **Python 3.9+**.
 
 ```bash
-# 1. (from the repo root) enter the project
-cd marketing-dashboard
+# 1. clone the repo and enter it
+git clone https://github.com/CoreLogicLabs/marketing-ad-performance-dashboard.git
+cd marketing-ad-performance-dashboard
 
 # 2. create & activate a virtual environment
 python -m venv .venv
@@ -123,18 +129,18 @@ The app opens at <http://localhost:8501>. On first run it generates
 Streamlit Community Cloud hosts the app for free directly from a GitHub repo.
 
 1. **Push to GitHub.** Commit this project to a public (or private) GitHub
-   repository. If `marketing-dashboard/` lives inside a larger repo, that's
-   fine — you'll point Streamlit at the subfolder's `app.py` in step 4.
+   repository.
 2. **Sign in.** Go to <https://share.streamlit.io> and sign in with GitHub.
 3. **New app.** Click **"Create app" → "Deploy a public app from GitHub"**.
 4. **Configure:**
    - **Repository:** `your-username/your-repo`
    - **Branch:** `main`
-   - **Main file path:** `marketing-dashboard/app.py`
-     _(use the full path if the project is in a subfolder)._
-5. **Deploy.** Streamlit installs `requirements.txt` and launches the app.
-   The dataset is generated on first load, so no data files are required in the
-   repo. You'll get a shareable `*.streamlit.app` URL.
+   - **Main file path:** `app.py`
+     _(it lives at the repo root; use a path like `subfolder/app.py` only if you
+     nest the project inside a larger repo)._
+5. **Deploy.** Streamlit installs `requirements.txt` and launches the app. The
+   dataset is committed to the repo (and regenerated automatically if missing),
+   so it works out of the box. You'll get a shareable `*.streamlit.app` URL.
 
 **Notes**
 - Keep `requirements.txt` at the **same level as `app.py`** so Streamlit Cloud
